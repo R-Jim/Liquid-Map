@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="style/main.css">
+</head>
+
+<body>
+<div id="header"></div>
+<div id="toolBar">
+    <button onclick="addBase()">+ Base</button>
+    <button id="btnAddComponent" onclick="addComponent()">+ Component</button>
+    Zoom
+    <input type="range" min="50" max="150" value="100" id="zoomBaseSlide">
+    <span id="value"></span>
+</div>
+<div id="mappingBoard"></div>
+<div id="propertiesSideBar">
+    <div id="componentPropertiesBar"></div>
+    <div id="layersBar"></div>
+</div>
+</body>
+<script src="style/main.js"></script>
+</html>

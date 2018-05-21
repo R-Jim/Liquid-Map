@@ -1,0 +1,88 @@
+#header {
+    height: 60px;
+    border: 2px dashed yellow;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+#toolBar {
+    height: 60px;
+    width: 100%;
+    border: 2px dashed red;
+    box-sizing: border-box;
+}
+
+/*St:Propertiestbar*/
+#propertiesSideBar {
+    height: 600px;
+    width: 25%;
+    float: left;
+    border: 2px dashed green;
+    box-sizing: border-box;
+}
+
+#componentPropertiesBar {
+    width: 100%;
+    height: 50%;
+    float: left;
+    border: 2px dashed green;
+    box-sizing: border-box;
+}
+
+#layersBar {
+    width: 100%;
+    height: 50%;
+    float: left;
+    border: 2px dashed green;
+    box-sizing: border-box;
+}
+
+/*Ed:Propertiestbar*/
+.mydiv {
+    position: absolute;
+    z-index: 9;
+    background-color: #f1f1f1;
+    text-align: center;
+    border: 1px solid #d3d3d3;
+    resize: both;
+    overflow: auto;
+}
+
+.mydivheader {
+    padding: 10px;
+    cursor: move;
+    z-index: 10;
+    background-color: #2196F3;
+    color: #fff;
+}
+
+/*St: mapping and base*/
+#mappingBoard {
+    height: 600px;
+    width: 75%;
+    float: left;
+    border: 2px dashed blue;
+    box-sizing: border-box;
+    position: relative;
+    background-color: azure;
+    overflow: auto;
+}
+
+#base {
+    background-color: mistyrose;
+    width: 800px;
+    height: 500px;
+    border: 2px dashed black;
+    overflow: hidden;
+    position: absolute;
+
+}
+
+.mapping {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border: 2px dashed black;
+}
+
+/*Ed: mapping and base*/
