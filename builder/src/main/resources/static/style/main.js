@@ -1,4 +1,3 @@
-
 function dragElement(elmnt) {
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
     if (document.getElementById(elmnt.id + "header")) {
@@ -37,7 +36,9 @@ function dragElement(elmnt) {
         document.onmousemove = null;
     }
 }
+
 var idCount = 0;
+
 function addComponent() {
     var board = document.getElementById("mappingBoard");
     var base = document.getElementById("base");
@@ -89,9 +90,9 @@ function addComponent() {
         try {
             var div = document.createElement('div');
             document.getElementById("base").appendChild(div);
-            div.className = 'mydiv';
-            div.id = 'mydiv' + idCount;
-            div.innerHTML = '  <div id="mydiv' + idCount + 'header" class="mydivheader"></div>';
+            div.className = 'component ' + selectedLayer;
+            div.id = 'component' + idCount;
+            div.innerHTML = '  <div id="component' + idCount + 'header" class="componentheader"></div>';
             idCount++;
             div.style.top = componentDrawing.style.top;
             div.style.left = componentDrawing.style.left;
@@ -111,6 +112,7 @@ function addComponent() {
         base.style.cursor = "auto";
     }
 }
+
 //for base
 
 //zoom base
@@ -132,4 +134,46 @@ function addBase() {
     base.id = 'base';
     board.style.paddingTop = (board.offsetHeight - base.offsetHeight) / 2 + "px";
     board.style.paddingLeft = (board.offsetWidth - base.offsetWidth) / 2 + "px";
+    //add default layer to base
+    addLayer();
 }
+
+//add new layer
+var layerCount = 0;
+var selectedLayer = null;
+
+function addLayer() {
+    var layer = document.createElement('div');
+    var layersBar = document.getElementById('layersBar');
+    layersBar.appendChild(layer);
+    layer.className = 'layer';
+    //set mouse on clink to select layer
+    layer.onclick = function (ev) {
+        selectedLayer = this.id;
+        document.getElementById("value").innerHTML = selectedLayer;
+    }
+    layer.id = 'layer' + layerCount++;
+    selectedLayer = layer.id;
+    layerUIBuild(layer);
+}
+
+function layerUIBuild(layer) {
+    var btnHidden = document.createElement('input');
+    btnHidden.type = 'checkbox';
+    btnHidden.checked = true;
+    btnHidden.onchange = function (ev) {
+        var components = document.getElementsByClassName(layer.id);
+        var i;
+        for (i = 0; i < components.length; i++) {
+            components[i].style.visibility = (this.checked) ? "visible" : "hidden";
+        }
+        document.getElementById("value").innerHTML = components.length;
+    }
+    layer.appendChild(btnHidden);
+    var nameTag = document.createElement('div');
+    nameTag.innerText = layer.id;
+    nameTag.id = layer.id + "NameTag";
+    nameTag.className = "nameTag";
+    layer.appendChild(nameTag);
+}
+
