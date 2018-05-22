@@ -99,6 +99,7 @@ function addComponent() {
         /* stop moving when mouse button is released:*/
         var componentDrawing = document.getElementById("drag");
         try {
+            //create component
             var div = document.createElement('div');
             document.getElementById("base").appendChild(div);
             div.className = 'component ' + selectedLayer;
@@ -109,6 +110,12 @@ function addComponent() {
             div.style.left = componentDrawing.style.left;
             div.style.width = componentDrawing.style.width;
             div.style.height = componentDrawing.style.height;
+            div.onclick = function (ev) {
+                selectingComponent(this);
+                ev.stopPropagation();
+            };
+            selectedComponent = div.id;
+            selectingComponent(div);
             dragElement(div);
         } catch (err) {
             console.log(err);
@@ -121,6 +128,23 @@ function addComponent() {
         base.onmousemove = null;
         base.onmousedown = null;
         base.style.cursor = "auto";
+    }
+}
+
+//Selecting a component
+var selectedComponent = null;
+
+function selectingComponent(component) {
+    deselectingComponent();
+    component.style.border = "2px dashed black";
+    selectedComponent = component.id;
+}
+
+function deselectingComponent() {
+    selectedComponent = null;
+    var components = document.getElementsByClassName("component");
+    for (var i = 0; i < components.length; i++) {
+        components[i].style.border = "none";
     }
 }
 
@@ -146,6 +170,7 @@ function addBase() {
     board.style.paddingTop = (board.offsetHeight - base.offsetHeight) / 2 + "px";
     board.style.paddingLeft = (board.offsetWidth - base.offsetWidth) / 2 + "px";
     //add default layer to base
+    base.onclick = deselectingComponent;
     addLayer();
 }
 
@@ -172,6 +197,8 @@ function addLayer() {
     var sheet = document.createElement('style')
     sheet.innerHTML = "." + layer.id + " {background-color: red;z-index:" + layerCount + ";}";
     layerCssHolder.appendChild(sheet);
+    //remove selected layer
+    deselectingComponent();
     //build UI for layer
     layerUIBuild(layer);
 }
