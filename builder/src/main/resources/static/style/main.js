@@ -3,12 +3,24 @@ function dragElement(elmnt) {
     if (document.getElementById(elmnt.id + "header")) {
         /* if present, the header is where you move the DIV from:*/
         document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+        document.getElementById(elmnt.id + "header").onmouseenter = function (ev) {
+            if (elmnt.className.indexOf(selectedLayer) >= 0) {
+                document.getElementById(elmnt.id + "header").style.cursor = "move";
+            }
+        }
+        document.getElementById(elmnt.id + "header").onmouseleave = function (ev) {
+            document.getElementById(elmnt.id + "header").style.cursor = "default";
+        }
     } else {
         /* otherwise, move the DIV from anywhere inside the DIV:*/
         elmnt.onmousedown = dragMouseDown;
     }
 
     function dragMouseDown(e) {
+        if (elmnt.className.indexOf(selectedLayer) < 0) {
+            console.log("not");
+            return;
+        }
         e = e || window.event;
         // get the mouse cursor position at startup:
         pos3 = e.clientX;
@@ -144,11 +156,12 @@ var selectedLayer = null;
 function addLayer() {
     var layer = document.createElement('div');
     var layersBar = document.getElementById('layersBar');
-    layersBar.appendChild(layer);
+    layersBar.insertBefore(layer, layersBar.childNodes[0]);
     layer.className = 'layer';
     //set mouse on clink to select layer
     layer.onclick = function (ev) {
         selectedLayer = this.id;
+        turnOnAIndicator(this.id + "Indicator");
         document.getElementById("value").innerHTML = selectedLayer;
     }
     layer.style.zIndex = layerCount;
@@ -181,5 +194,21 @@ function layerUIBuild(layer) {
     nameTag.id = layer.id + "NameTag";
     nameTag.className = "nameTag";
     layer.appendChild(nameTag);
+    var indicator = document.createElement('div');
+    indicator.id = layer.id + "Indicator";
+    indicator.className = "indicator";
+    layer.appendChild(indicator);
+    turnOnAIndicator(indicator.id);
+}
+
+function turnOnAIndicator(indicatorId) {
+    var indicators = document.getElementsByClassName("indicator");
+    for (var i = 0; i < indicators.length; i++) {
+        if (indicators[i].id == indicatorId) {
+            indicators[i].style.visibility = "visible";
+        } else {
+            indicators[i].style.visibility = "hidden";
+        }
+    }
 }
 
