@@ -49,7 +49,6 @@ function addComponent() {
     var offSetLeft = board.offsetLeft + parseInt(boardPaddingLeft.substr(0, boardPaddingLeft.length - 2)) - board.scrollLeft;
     base.onmousedown = dragMouseDown;
     base.style.cursor = "crosshair";
-    var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
 
     function dragMouseDown(e) {
         e = e || window.event;
@@ -152,8 +151,15 @@ function addLayer() {
         selectedLayer = this.id;
         document.getElementById("value").innerHTML = selectedLayer;
     }
+    layer.style.zIndex = layerCount;
     layer.id = 'layer' + layerCount++;
     selectedLayer = layer.id;
+    //create css class for layer
+    var layerCssHolder = document.getElementById("layerCssHolder");
+    var sheet = document.createElement('style')
+    sheet.innerHTML = "." + layer.id + " {background-color: red;z-index:" + layerCount + ";}";
+    layerCssHolder.appendChild(sheet);
+    //build UI for layer
     layerUIBuild(layer);
 }
 
@@ -162,12 +168,12 @@ function layerUIBuild(layer) {
     btnHidden.type = 'checkbox';
     btnHidden.checked = true;
     btnHidden.onchange = function (ev) {
-        var components = document.getElementsByClassName(layer.id);
-        var i;
-        for (i = 0; i < components.length; i++) {
-            components[i].style.visibility = (this.checked) ? "visible" : "hidden";
+        var strCSS = 'cssRules';
+        if (document.all) {
+            strCSS = 'rules';
         }
-        document.getElementById("value").innerHTML = components.length;
+        var position = parseInt(layer.id.substring(5, layer.id.length));
+        document.styleSheets[++position][strCSS][0].style["visibility"] = (this.checked) ? "visible" : "hidden";
     }
     layer.appendChild(btnHidden);
     var nameTag = document.createElement('div');
