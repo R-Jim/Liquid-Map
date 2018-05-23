@@ -1,3 +1,7 @@
+function getThatBloodyThing(id) {
+    return document.getElementById(id);
+}
+
 function dragElement(elmnt) {
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
     if (document.getElementById(elmnt.id + "header")) {
@@ -150,9 +154,50 @@ function showComponentProp(component) {
     changeValue("componentPropertiesPosY", component.offsetTop);
     var header = document.getElementById(component.id + "header");
     changeValue("componentPropertiesColor", rgb2hex(window.getComputedStyle(header).backgroundColor));
+    setUpChangeEventPropFields();
 }
+
 function changeValue(targetId, value) {
     document.getElementById(targetId).value = value;
+}
+
+function setUpChangeEventPropFields() {
+    var base = getThatBloodyThing("base");
+    if (selectedComponent == null) {
+        return;
+    }
+    var component = getThatBloodyThing(selectedComponent);
+    ////
+    var name = getThatBloodyThing("componentPropertiesName");
+    var sizeX = getThatBloodyThing("componentPropertiesSizeX");
+    var sizeY = getThatBloodyThing("componentPropertiesSizeY");
+    var posX = getThatBloodyThing("componentPropertiesPosX");
+    var posY = getThatBloodyThing("componentPropertiesPosY");
+    var colorPicker = getThatBloodyThing("componentPropertiesColor");
+    ////
+    name.onchange = function () {
+        component.name = name.value;
+    }
+    sizeX.onchange = function () {
+        sizeX.value = (sizeX.value < 50) ? 50 : (sizeX.value > base.offsetWidth - component.offsetLeft) ? base.offsetWidth - component.offsetLeft : sizeX.value;
+        component.style.width = sizeX.value + "px";
+    }
+    sizeY.onchange = function () {
+        sizeY.value = (sizeY.value < 50) ? 50 : (sizeY.value > base.offsetHeight - component.offsetTop) ? base.offsetHeight - component.offsetTop : sizeY.value;
+        component.style.height = sizeY.value + "px";
+    }
+    posX.onchange = function () {
+        posX.value = (posX.value < 0) ? 1 : (posX.value > base.offsetWidth - component.offsetWidth) ? base.offsetWidth - component.offsetWidth : posX.value;
+        component.style.left = posX.value + "px";
+    }
+    posY.onchange = function () {
+        posY.value = (posY.value < 0) ? 1 : (posY.value > base.offsetHeight - component.offsetHeight) ? base.offsetHeight - component.offsetHeight : posY.value;
+        component.style.top = posY.value + "px";
+    }
+    colorPicker.onchange = function(){
+        var header = getThatBloodyThing(component.id +"header");
+        header.style.backgroundColor = colorPicker.value;
+    }
 }
 
 //RGB to Hex
@@ -235,7 +280,7 @@ function addLayer() {
     //create css class for layer
     var layerCssHolder = document.getElementById("layerCssHolder");
     var sheet = document.createElement('style')
-    sheet.innerHTML = "." + layer.id + " {background-color: red;z-index:" + layerCount + ";}";
+    sheet.innerHTML = "." + layer.id + " {z-index:" + layerCount + ";}";
     layerCssHolder.appendChild(sheet);
     //remove selected layer
     deselectingComponent();
