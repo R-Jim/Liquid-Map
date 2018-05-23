@@ -18,7 +18,6 @@ function dragElement(elmnt) {
 
     function dragMouseDown(e) {
         if (elmnt.className.indexOf(selectedLayer) < 0) {
-            console.log("not");
             return;
         }
         e = e || window.event;
@@ -38,8 +37,19 @@ function dragElement(elmnt) {
         pos3 = e.clientX;
         pos4 = e.clientY;
         // set the element's new position:
-        elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-        elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+        var base = document.getElementById("base");
+        if (elmnt.offsetTop > 0 && (elmnt.offsetTop + elmnt.offsetHeight) < base.offsetHeight) {
+            elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+
+        } else {
+            elmnt.style.top = (elmnt.offsetTop <= 0) ? "1px" : base.offsetHeight - elmnt.offsetHeight - 1 + "px";
+        }
+        if (elmnt.offsetLeft > 0 && (elmnt.offsetLeft + elmnt.offsetWidth) < base.offsetWidth) {
+            elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+        } else {
+            elmnt.style.left = (elmnt.offsetLeft <= 0) ? "1px" : base.offsetWidth - elmnt.offsetWidth - 1 + "px";
+        }
+        document.getElementById("value").innerHTML = elmnt.offsetTop + "," + base.offsetHeight;
     }
 
     function closeDragElement() {
@@ -76,7 +86,6 @@ function addComponent() {
         div.className = "mapping";
         div.id = "drag";
         base.appendChild(div);
-        document.getElementById("value").innerHTML = "=" + e.pageY + "," + offSetTop + ":" + div.offsetTop;
     }
 
     function elementDrag(e) {
@@ -104,12 +113,13 @@ function addComponent() {
             document.getElementById("base").appendChild(div);
             div.className = 'component ' + selectedLayer;
             div.id = 'component' + idCount;
+            div.name = div.id;
             div.innerHTML = '  <div id="component' + idCount + 'header" class="componentheader"></div>';
             idCount++;
             div.style.top = componentDrawing.style.top;
             div.style.left = componentDrawing.style.left;
-            div.style.width = componentDrawing.style.width;
-            div.style.height = componentDrawing.style.height;
+            div.style.width = (componentDrawing.offsetWidth > 30) ? componentDrawing.style.width : "30px";
+            div.style.height = (componentDrawing.offsetHeight > 30) ? componentDrawing.style.height : "30px";
             div.onclick = function (ev) {
                 selectingComponent(this);
                 ev.stopPropagation();
@@ -131,15 +141,46 @@ function addComponent() {
     }
 }
 
+//Show component properties
+function showComponentProp(component) {
+    changeValue("componentPropertiesName", component.name);
+    changeValue("componentPropertiesSizeX", component.offsetWidth);
+    changeValue("componentPropertiesSizeY", component.offsetHeight);
+    changeValue("componentPropertiesPosX", component.offsetLeft);
+    changeValue("componentPropertiesPosY", component.offsetTop);
+    var header = document.getElementById(component.id + "header");
+    changeValue("componentPropertiesColor", rgb2hex(window.getComputedStyle(header).backgroundColor));
+}
+function changeValue(targetId, value) {
+    document.getElementById(targetId).value = value;
+}
+
+//RGB to Hex
+var hexDigits = new Array
+    ("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f");
+
+//Function to convert rgb color to hex format
+function rgb2hex(rgb) {
+    rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+    return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+}
+
+function hex(x) {
+    return isNaN(x) ? "00" : hexDigits[(x - x % 16) / 16] + hexDigits[x % 16];
+}
+
+////////
 //Selecting a component
 var selectedComponent = null;
 
 function selectingComponent(component) {
     deselectingComponent();
-    component.style.border = "2px dashed black";
-    selectedComponent = component.id;
+    if (component.className.indexOf(selectedLayer) >= 0) {
+        component.style.border = "2px dashed black";
+        selectedComponent = component.id;
+        showComponentProp(component);
+    }
 }
-
 function deselectingComponent() {
     selectedComponent = null;
     var components = document.getElementsByClassName("component");
@@ -157,7 +198,6 @@ document.getElementById('zoomBaseSlide').oninput = function zoomBase() {
     base.style.zoom = this.value / 100;
     board.style.paddingTop = (board.offsetHeight - base.offsetHeight * (this.value / 100)) / 2 + "px";
     board.style.paddingLeft = (board.offsetWidth - base.offsetWidth * (this.value / 100)) / 2 + "px";
-    document.getElementById("value").innerHTML = board.style.paddingTop + "," + board.style.paddingLeft;
 }
 
 
@@ -187,7 +227,7 @@ function addLayer() {
     layer.onclick = function (ev) {
         selectedLayer = this.id;
         turnOnAIndicator(this.id + "Indicator");
-        document.getElementById("value").innerHTML = selectedLayer;
+        deselectingComponent();
     }
     layer.style.zIndex = layerCount;
     layer.id = 'layer' + layerCount++;
