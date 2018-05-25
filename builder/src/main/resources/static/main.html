@@ -1,32 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" type="text/css" href="style/main.css"/>
-    <link id="layerCssHolder" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="style/main.css" />
+    <link id="layerCssHolder" type="text/css" />
 </head>
 
 <body>
-<div id="header"></div>
-<div id="toolBar">
-    <button onclick="addBase()">+ Base</button>
-    <button onclick="addLayer()">+ Layer</button>
-    <button id="btnAddComponent" onclick="addComponent()">+ Component</button>
-    Zoom
-    <input type="range" min="50" max="150" value="100" id="zoomBaseSlide">
-    <span id="value"></span>
-</div>
-<div id="mappingBoard"></div>
-<div id="propertiesSideBar">
-    <div id="componentPropertiesBar">
-        <p>Tên:<input type="text" id="componentPropertiesName"/></p>
-        <p>Kích thước: x<input type="number" id="componentPropertiesSizeX"/>-y<input type="number" id="componentPropertiesSizeY"/></p>
-        <p>Vị trí: x<input type="number" id="componentPropertiesPosX"/>-y<input type="number" id="componentPropertiesPosY"/></p>
-        <p>Màu:<input type="color" id="componentPropertiesColor"/></p>
+    <div id="header">
+        <div id="projectName">Dự Án không tên</div>
+        <div id="userInfo">//User info here//</div>
     </div>
-    <div id="layersBar"></div>
-</div>
+    <div id="menu">
+        <div class="menuItem">Bản vẽ</div>
+        <div class="menuItem">Dữ liệu</div>
+        <div class="menuItem">Thống kê</div>
+    </div>
+    <div id="toolBar">
+        <button onclick="addBase()">+ Nền</button>
+        <button onclick="addLayer()">+ Lớp</button>
+        <button id="btnAddComponent" onclick="addComponent()">+ Khung chứa</button>
+        Zoom
+        <input type="range" min="50" max="150" value="100" id="zoomBaseSlide">
+        <span id="value"></span>
+    </div>
+    <div id="mappingBoard"></div>
+    <div id="propertiesSideBar">
+        <div id="componentPropertiesBar">
+            <p>Tên:
+                <input type="text" id="componentPropertiesName" />
+            </p>
+            <p>Kích thước: x
+                <input type="number" id="componentPropertiesSizeX" />-y
+                <input type="number" id="componentPropertiesSizeY" />
+            </p>
+            <p>Vị trí: x
+                <input type="number" id="componentPropertiesPosX" />-y
+                <input type="number" id="componentPropertiesPosY" />
+            </p>
+            <p>Màu:
+                <input type="color" id="componentPropertiesColor" />
+            </p>
+        </div>
+        <div id="layersBar"></div>
+    </div>
 </body>
 <script src="style/main.js"></script>
+
 </html>

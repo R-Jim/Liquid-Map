@@ -31,6 +31,7 @@ function dragElement(elmnt) {
         document.onmouseup = closeDragElement;
         // call a function whenever the cursor moves:
         document.onmousemove = elementDrag;
+
     }
 
     function elementDrag(e) {
@@ -64,6 +65,38 @@ function dragElement(elmnt) {
 }
 
 var idCount = 0;
+function createElement(source) {
+    if (source == null) {
+        return;
+    }
+    if (selectedLayer == null) {
+        return;
+    }
+    var div = document.createElement('div');
+    div.className = 'component ' + selectedLayer;
+    div.id = 'component' + idCount;
+    div.name = (source.name === undefined) ? div.id : source.name + " Copy";
+    var header = document.createElement('div');
+    header.id = div.id + "header";
+    header.className = "componentheader";
+    div.appendChild(header);
+    var sourceHeader = getThatBloodyThing(source.id + "header");
+    if (sourceHeader) {
+        header.style.backgroundColor = sourceHeader.style.backgroundColor;
+    }
+    idCount++;
+    div.style.top = source.style.top;
+    div.style.left = source.style.left;
+    sourceWidth = parseInt(source.style.width.substring(0, source.style.width.length - 2));
+    sourceHeight = parseInt(source.style.height.substring(0, source.style.height.length - 2));
+    div.style.width = (sourceWidth > 30) ? source.style.width : "30px";
+    div.style.height = (sourceHeight > 30) ? source.style.height : "30px";
+    div.onclick = function (ev) {
+        selectingComponent(this);
+        ev.stopPropagation();
+    };
+    return div;
+}
 
 function addComponent() {
     var board = document.getElementById("mappingBoard");
@@ -113,21 +146,8 @@ function addComponent() {
         var componentDrawing = document.getElementById("drag");
         try {
             //create component
-            var div = document.createElement('div');
+            var div = createElement(componentDrawing);
             document.getElementById("base").appendChild(div);
-            div.className = 'component ' + selectedLayer;
-            div.id = 'component' + idCount;
-            div.name = div.id;
-            div.innerHTML = '  <div id="component' + idCount + 'header" class="componentheader"></div>';
-            idCount++;
-            div.style.top = componentDrawing.style.top;
-            div.style.left = componentDrawing.style.left;
-            div.style.width = (componentDrawing.offsetWidth > 30) ? componentDrawing.style.width : "30px";
-            div.style.height = (componentDrawing.offsetHeight > 30) ? componentDrawing.style.height : "30px";
-            div.onclick = function (ev) {
-                selectingComponent(this);
-                ev.stopPropagation();
-            };
             selectedComponent = div.id;
             selectingComponent(div);
             dragElement(div);
@@ -194,8 +214,8 @@ function setUpChangeEventPropFields() {
         posY.value = (posY.value < 0) ? 1 : (posY.value > base.offsetHeight - component.offsetHeight) ? base.offsetHeight - component.offsetHeight : posY.value;
         component.style.top = posY.value + "px";
     }
-    colorPicker.onchange = function(){
-        var header = getThatBloodyThing(component.id +"header");
+    colorPicker.onchange = function () {
+        var header = getThatBloodyThing(component.id + "header");
         header.style.backgroundColor = colorPicker.value;
     }
 }
@@ -221,7 +241,7 @@ var selectedComponent = null;
 function selectingComponent(component) {
     deselectingComponent();
     if (component.className.indexOf(selectedLayer) >= 0) {
-        component.style.border = "2px dashed black";
+        component.style.border = " 1.2px solid rgb(0, 140, 255)";
         selectedComponent = component.id;
         showComponentProp(component);
     }
@@ -324,3 +344,33 @@ function turnOnAIndicator(indicatorId) {
     }
 }
 
+///key down function
+var copyComponent = null;
+onkeydown = function (e) {
+    if (e.ctrlKey) {
+        switch (e.key.toLowerCase(e.key)) {
+            case "c":
+                copyComponent = getThatBloodyThing(selectedComponent);
+                break;
+            case "x":
+                var tmpComponent = getThatBloodyThing(selectedComponent);
+                copyComponent = createElement(tmpComponent);
+                copyComponent.name = copyComponent.name.substring(0, copyComponent.name.length - 5);
+                tmpComponent.remove();
+                break;
+            case "v":
+                var div = createElement(copyComponent);
+                div.style.top = parseInt(div.style.top.substring(0, div.style.top.length - 2)) + 10 + "px";
+                div.style.left = parseInt(div.style.left.substring(0, div.style.left.length - 2)) + 10 + "px";
+                document.getElementById("base").appendChild(div);
+                selectedComponent = div.id;
+                selectingComponent(div);
+                dragElement(div);
+                copyComponent = div;
+                break;
+        }
+    }
+    if (e.key.toLowerCase(e.key) == "delete") {
+        getThatBloodyThing(selectedComponent).remove();
+    }
+}

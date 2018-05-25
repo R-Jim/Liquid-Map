@@ -1,12 +1,33 @@
 #header {
-    height: 60px;
+    height: 40px;
     border: 2px dashed yellow;
     box-sizing: border-box;
     width: 100%;
 }
 
+#projectName{
+    float: left;
+}
+
+#userInfo{
+    float: right;
+}
+#menu{
+    height: 40px;
+    width: 100%;
+    border: 2px dashed black;
+    box-sizing: border-box;
+}
+
+.menuItem{
+    height: 100%;
+    width: 20%;
+    float: left;
+    background-color: #2196F3;
+}
+
 #toolBar {
-    height: 60px;
+    height: 40px;
     width: 100%;
     border: 2px dashed red;
     box-sizing: border-box;
@@ -59,6 +80,9 @@
     border: 1px solid #d3d3d3;
     resize: both;
     overflow: auto;
+    box-sizing: border-box;
+    min-width: 30px;
+    min-height: 30px;
 }
 
 .componentheader {
@@ -74,28 +98,28 @@
     height: 600px;
     width: 75%;
     float: left;
-    border: 2px dashed blue;
+    border: 2px solid rgba(240, 240, 240, 0.452);
     box-sizing: border-box;
     position: relative;
-    background-color: azure;
+    background-color: rgb(240, 240, 240);
     overflow: auto;
 }
 
 #base {
-    background-color: mistyrose;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.19);
+    background-color: white;
     width: 800px;
     height: 500px;
-    border: 2px dashed black;
+    border: 1.2px solid gray;
     overflow: hidden;
     position: absolute;
-
 }
 
 .mapping {
     position: absolute;
     width: 10px;
     height: 10px;
-    border: 2px dashed black;
+    border: 1.2px solid rgb(0, 140, 255);
 }
 
 /*Ed: mapping and base*/
