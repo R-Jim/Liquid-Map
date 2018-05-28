@@ -24,6 +24,7 @@
     width: 20%;
     float: left;
     background-color: #2196F3;
+    cursor: pointer;
 }
 
 #toolBar {
@@ -35,27 +36,42 @@
 
 /*St:Propertiestbar*/
 #propertiesSideBar {
-    height: 600px;
+    height: 550px;
     width: 25%;
     float: left;
     border: 2px dashed green;
     box-sizing: border-box;
 }
-
+.propInput{
+    width: 80%;
+    padding-right: 10px;
+}
+.propInput input{
+    width: 50%;
+}
 #componentPropertiesBar {
+    padding: 10px;
     width: 100%;
     height: 50%;
     float: left;
     border: 2px dashed green;
     box-sizing: border-box;
+    overflow-y: scroll;
 }
 
 #layersBar {
     width: 100%;
-    height: 50%;
+    height: 45%;
     float: left;
     border: 2px dashed green;
     box-sizing: border-box;
+    overflow-y: scroll;
+}
+
+#layerToolBar{
+    width: 100%;
+    height: 5%;
+    float: left;
 }
 
 .layer {
@@ -95,7 +111,7 @@
 
 /*St: mapping and base*/
 #mappingBoard {
-    height: 600px;
+    height: 550px;
     width: 75%;
     float: left;
     border: 2px solid rgba(240, 240, 240, 0.452);

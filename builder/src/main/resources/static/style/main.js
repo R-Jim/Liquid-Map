@@ -83,6 +83,8 @@ function createElement(source) {
     var sourceHeader = getThatBloodyThing(source.id + "header");
     if (sourceHeader) {
         header.style.backgroundColor = sourceHeader.style.backgroundColor;
+    } else {
+        header.style.backgroundColor = source.style.backgroundColor;
     }
     idCount++;
     div.style.top = source.style.top;
@@ -333,6 +335,64 @@ function layerUIBuild(layer) {
     turnOnAIndicator(indicator.id);
 }
 
+function moveLayer(direction) {
+    var layer = getThatBloodyThing(selectedLayer);
+    var layersBar = document.getElementById('layersBar');
+    var posNodeBefore = 0;
+    for (var i = 0; i < layersBar.childNodes.length; i++) {
+        if (direction == "up") {
+            if (layersBar.childNodes[i].id == selectedLayer) {
+                break;
+            }
+            posNodeBefore = i;
+        } else {
+            if (layersBar.childNodes[i].id == selectedLayer) {
+                posNodeBefore = i + 1;
+                break;
+            }
+        }
+    }
+    ///change z-index
+    var strCSS = 'cssRules';
+    if (document.all) {
+        strCSS = 'rules';
+    }
+    var layerBefore = layersBar.childNodes[posNodeBefore];
+    if (layerBefore !== undefined && layerBefore.id != selectedLayer) {
+        var position = parseInt(layer.id.substring(5, layer.id.length)) + 1;
+        var positionBf = parseInt(layerBefore.id.substring(5, layerBefore.id.length)) + 1;
+        var zIndexBf = document.styleSheets[positionBf][strCSS][0].style["zIndex"];
+        var zIndex = document.styleSheets[position][strCSS][0].style["zIndex"];
+        document.styleSheets[position][strCSS][0].style["zIndex"] = zIndexBf;
+        document.styleSheets[positionBf][strCSS][0].style["zIndex"] = zIndex;
+    }
+    //Move the selected layer
+    layersBar.insertBefore(layer, layersBar.childNodes[(direction == "up") ? posNodeBefore : posNodeBefore + 1]);
+}
+
+function deleteLayer() {
+    var layer = getThatBloodyThing(selectedLayer);
+    var posNodeBefore = 0;
+    for (var i = 0; i < layersBar.childNodes.length; i++) {
+        if (layersBar.childNodes[i].id == selectedLayer) {
+            posNodeBefore = i + 1;
+            break;
+        }
+    }
+    var layerBefore = layersBar.childNodes[posNodeBefore];
+    if (layerBefore !== undefined) {
+        var components = document.getElementsByClassName(layer.id);
+        while(components.length > 0){
+            components[0].remove();
+            alert(components.length);
+        }
+        layer.remove();
+        selectedLayer = layerBefore.id;
+        turnOnAIndicator(layerBefore.id + "Indicator");
+        deselectingComponent();
+    }
+}
+
 function turnOnAIndicator(indicatorId) {
     var indicators = document.getElementsByClassName("indicator");
     for (var i = 0; i < indicators.length; i++) {
@@ -356,6 +416,8 @@ onkeydown = function (e) {
                 var tmpComponent = getThatBloodyThing(selectedComponent);
                 copyComponent = createElement(tmpComponent);
                 copyComponent.name = copyComponent.name.substring(0, copyComponent.name.length - 5);
+                var header = getThatBloodyThing(tmpComponent.id + "header");
+                copyComponent.style.backgroundColor = header.style.backgroundColor;
                 tmpComponent.remove();
                 break;
             case "v":

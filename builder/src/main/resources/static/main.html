@@ -29,20 +29,52 @@
     <div id="mappingBoard"></div>
     <div id="propertiesSideBar">
         <div id="componentPropertiesBar">
-            <p>Tên:
-                <input type="text" id="componentPropertiesName" />
-            </p>
-            <p>Kích thước: x
-                <input type="number" id="componentPropertiesSizeX" />-y
-                <input type="number" id="componentPropertiesSizeY" />
-            </p>
-            <p>Vị trí: x
-                <input type="number" id="componentPropertiesPosX" />-y
-                <input type="number" id="componentPropertiesPosY" />
-            </p>
-            <p>Màu:
-                <input type="color" id="componentPropertiesColor" />
-            </p>
+            <table>
+                <tr>
+                    <td>
+                        Tên:
+                    </td>
+                    <td></td>
+                    <td colspan="3">
+                        <input type="text" id="componentPropertiesName" style="width: 96%;"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Vị trí:</td>
+                    <td>X</td>
+                    <td>
+                        <input type="number" id="componentPropertiesPosX" class="propInput" />
+                    </td>
+                    <td>Y</td>
+                    <td>
+                        <input type="number" id="componentPropertiesPosY" class="propInput" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 30%">Kích thước:</td>
+                    <td>X</td>
+                    <td>
+                        <input type="number" id="componentPropertiesSizeX" class="propInput" />
+                    </td>
+                    <td>Y</td>
+                    <td>
+                        <input type="number" id="componentPropertiesSizeY" class="propInput" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Màu:</td>
+                    <td></td>
+                    <td>
+                        <input type="color" id="componentPropertiesColor" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="layerToolBar">
+            Layers
+            <button onclick="moveLayer('up')">Up</button>
+            <button onclick="moveLayer('down')">Down</button>
+            <button onclick="deleteLayer()">Delete</button>
         </div>
         <div id="layersBar"></div>
     </div>
