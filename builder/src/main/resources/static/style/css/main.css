@@ -1,0 +1,27 @@
+#header {
+    height: 40px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+#projectName{
+    float: left;
+}
+
+#userInfo{
+    float: right;
+}
+#menu{
+    height: 40px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.menuItem{
+    height: 100%;
+    width: 20%;
+    float: left;
+    background-color: #2196F3;
+    cursor: pointer;
+}
+

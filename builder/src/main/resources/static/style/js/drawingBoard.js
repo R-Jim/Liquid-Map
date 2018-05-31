@@ -258,14 +258,7 @@ function deselectingComponent() {
 
 //for base
 
-//zoom base
-document.getElementById('zoomBaseSlide').oninput = function zoomBase() {
-    var base = document.getElementById("base");
-    var board = document.getElementById("mappingBoard");
-    base.style.zoom = this.value / 100;
-    board.style.paddingTop = (board.offsetHeight - base.offsetHeight * (this.value / 100)) / 2 + "px";
-    board.style.paddingLeft = (board.offsetWidth - base.offsetWidth * (this.value / 100)) / 2 + "px";
-}
+
 
 
 //add base
@@ -279,6 +272,15 @@ function addBase() {
     //add default layer to base
     base.onclick = deselectingComponent;
     addLayer();
+
+    //zoom base
+    document.getElementById('zoomBaseSlide').oninput = function zoomBase() {
+        var base = document.getElementById("base");
+        var board = document.getElementById("mappingBoard");
+        base.style.zoom = this.value / 100;
+        board.style.paddingTop = (board.offsetHeight - base.offsetHeight * (this.value / 100)) / 2 + "px";
+        board.style.paddingLeft = (board.offsetWidth - base.offsetWidth * (this.value / 100)) / 2 + "px";
+    }
 }
 
 //add new layer
@@ -382,7 +384,7 @@ function deleteLayer() {
     var layerBefore = layersBar.childNodes[posNodeBefore];
     if (layerBefore !== undefined) {
         var components = document.getElementsByClassName(layer.id);
-        while(components.length > 0){
+        while (components.length > 0) {
             components[0].remove();
             alert(components.length);
         }

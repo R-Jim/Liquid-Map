@@ -1,0 +1,63 @@
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="style/css/drawingBoard.css" />
+<link id="layerCssHolder" type="text/css" />
+<div id="toolBar">
+    <button onclick="addBase()">+ Nền</button>
+    <button onclick="addLayer()">+ Lớp</button>
+    <button id="btnAddComponent" onclick="addComponent()">+ Khung chứa</button>
+    Zoom
+    <input type="range" min="50" max="150" value="100" id="zoomBaseSlide">
+    <span id="value"></span>
+</div>
+<div id="mappingBoard"></div>
+<div id="propertiesSideBar">
+    <div id="componentPropertiesBar">
+        <table>
+            <tr>
+                <td>
+                    <p>Tên:</p>
+                </td>
+                <td></td>
+                <td colspan="3">
+                    <input type="text" id="componentPropertiesName" style="width: 96%;" />
+                </td>
+            </tr>
+            <tr>
+                <td>Vị trí:</td>
+                <td>X</td>
+                <td>
+                    <input type="number" id="componentPropertiesPosX" class="propInput" />
+                </td>
+                <td>Y</td>
+                <td>
+                    <input type="number" id="componentPropertiesPosY" class="propInput" />
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 30%">Kích thước:</td>
+                <td>X</td>
+                <td>
+                    <input type="number" id="componentPropertiesSizeX" class="propInput" />
+                </td>
+                <td>Y</td>
+                <td>
+                    <input type="number" id="componentPropertiesSizeY" class="propInput" />
+                </td>
+            </tr>
+            <tr>
+                <td>Màu:</td>
+                <td></td>
+                <td>
+                    <input type="color" id="componentPropertiesColor" />
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="layerToolBar">
+        Layers
+        <button onclick="moveLayer('up')">Up</button>
+        <button onclick="moveLayer('down')">Down</button>
+        <button onclick="deleteLayer()">Delete</button>
+    </div>
+    <div id="layersBar"></div>
+</div>
