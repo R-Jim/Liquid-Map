@@ -1,5 +1,5 @@
-loadDrawingBoard();
-function loadDrawingBoard() {
+mainMenu("drawing");
+function mainMenu(path) {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -8,6 +8,6 @@ function loadDrawingBoard() {
             // alert(this.responseText);
         }
     };
-    xhttp.open("GET", "drawing", true);
+    xhttp.open("GET", path, true);
     xhttp.send();
 }

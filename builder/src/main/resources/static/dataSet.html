@@ -1,42 +1,5 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" type="text/css" href="style/main.css" />
-</head>
-
-<body>
-    <div id="header">
-        <div id="projectName">Dự Án không tên</div>
-        <div id="userInfo">//User info here//</div>
-    </div>
-    <div id="menu">
-        <div class="menuItem">Bản vẽ</div>
-        <div class="menuItem">Dữ liệu</div>
-        <div class="menuItem">Thống kê</div>
-    </div>
-
-    <?xml version="1.0"?>
-    <svg width="220" height="220" viewBox="-100 0 220 220" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink">
-
-        <!-- Draw the outline of the motion path in grey, along
-       with 2 small circles at key points -->
-        <path d="M10,210 A120,120 -45 0,1 110 10 A120,120 -45 0,1 10,110" stroke="lightgrey" stroke-width="2" fill="none" id="theMotionPath"
-        />
-        <circle cx="10" cy="110" r="3" fill="lightgrey" />
-        <circle cx="110" cy="10" r="3" fill="lightgrey" />
-
-        <!-- Red circle which will be moved along the motion path. -->
-        <circle cx="" cy="" r="5" fill="red">
-
-            <!-- Define the motion path animation -->
-            <animateMotion dur="6s" repeatCount="indefinite">
-                <mpath xlink:href="#theMotionPath" />
-            </animateMotion>
-        </circle>
-    </svg>
-</body>
-
-</html>
+<div>
+    <h1>This is Data set</h1>
+    <div id="dataSets"></div>
+    <button>+ Dữ Liệu</button>
+</div>

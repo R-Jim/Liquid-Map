@@ -65,6 +65,7 @@ function dragElement(elmnt) {
 }
 
 var idCount = 0;
+
 function createElement(source) {
     if (source == null) {
         return;
@@ -224,7 +225,7 @@ function setUpChangeEventPropFields() {
 
 //RGB to Hex
 var hexDigits = new Array
-    ("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f");
+("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f");
 
 //Function to convert rgb color to hex format
 function rgb2hex(rgb) {
@@ -248,6 +249,7 @@ function selectingComponent(component) {
         showComponentProp(component);
     }
 }
+
 function deselectingComponent() {
     selectedComponent = null;
     var components = document.getElementsByClassName("component");
@@ -259,16 +261,21 @@ function deselectingComponent() {
 //for base
 
 
-
-
 //add base
 function addBase() {
+    var width = getThatBloodyThing("txtBaseWidth").value;
+    var height = getThatBloodyThing("txtBaseHeight").value;
+    if (width < 100 || height < 100) {
+        return;
+    }
     var base = document.createElement('div');
     var board = document.getElementById("mappingBoard");
     board.appendChild(base);
     base.id = 'base';
-    board.style.paddingTop = (board.offsetHeight - base.offsetHeight) / 2 + "px";
-    board.style.paddingLeft = (board.offsetWidth - base.offsetWidth) / 2 + "px";
+    base.style.width = width + "px";
+    base.style.height = height + "px";
+    board.style.paddingTop = (board.offsetHeight - height) / 2 + "px";
+    board.style.paddingLeft = (board.offsetWidth - width) / 2 + "px";
     //add default layer to base
     base.onclick = deselectingComponent;
     addLayer();
@@ -281,6 +288,7 @@ function addBase() {
         board.style.paddingTop = (board.offsetHeight - base.offsetHeight * (this.value / 100)) / 2 + "px";
         board.style.paddingLeft = (board.offsetWidth - base.offsetWidth * (this.value / 100)) / 2 + "px";
     }
+    getThatBloodyThing("baseConfig").style.visibility = "hidden";
 }
 
 //add new layer

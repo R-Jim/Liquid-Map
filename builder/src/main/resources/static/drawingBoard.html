@@ -1,11 +1,9 @@
-<meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="style/css/drawingBoard.css" />
-<link id="layerCssHolder" type="text/css" />
+<link rel="stylesheet" type="text/css" href="style/css/drawingBoard.css"/>
+<link id="layerCssHolder" type="text/css"/>
 <div id="toolBar">
-    <button onclick="addBase()">+ Nền</button>
     <button onclick="addLayer()">+ Lớp</button>
     <button id="btnAddComponent" onclick="addComponent()">+ Khung chứa</button>
-    Zoom
+    Phóng to
     <input type="range" min="50" max="150" value="100" id="zoomBaseSlide">
     <span id="value"></span>
 </div>
@@ -19,36 +17,36 @@
                 </td>
                 <td></td>
                 <td colspan="3">
-                    <input type="text" id="componentPropertiesName" style="width: 96%;" />
+                    <input type="text" id="componentPropertiesName" style="width: 96%;"/>
                 </td>
             </tr>
             <tr>
                 <td>Vị trí:</td>
                 <td>X</td>
                 <td>
-                    <input type="number" id="componentPropertiesPosX" class="propInput" />
+                    <input type="number" id="componentPropertiesPosX" class="propInput"/>
                 </td>
                 <td>Y</td>
                 <td>
-                    <input type="number" id="componentPropertiesPosY" class="propInput" />
+                    <input type="number" id="componentPropertiesPosY" class="propInput"/>
                 </td>
             </tr>
             <tr>
                 <td style="width: 30%">Kích thước:</td>
                 <td>X</td>
                 <td>
-                    <input type="number" id="componentPropertiesSizeX" class="propInput" />
+                    <input type="number" id="componentPropertiesSizeX" class="propInput"/>
                 </td>
                 <td>Y</td>
                 <td>
-                    <input type="number" id="componentPropertiesSizeY" class="propInput" />
+                    <input type="number" id="componentPropertiesSizeY" class="propInput"/>
                 </td>
             </tr>
             <tr>
                 <td>Màu:</td>
                 <td></td>
                 <td>
-                    <input type="color" id="componentPropertiesColor" />
+                    <input type="color" id="componentPropertiesColor"/>
                 </td>
             </tr>
         </table>
@@ -60,4 +58,14 @@
         <button onclick="deleteLayer()">Delete</button>
     </div>
     <div id="layersBar"></div>
+</div>
+<div id="baseConfig">
+    <div id="baseConfigName">Tạo nền</div>
+    <div></div>
+    <div>Dài</div>
+    <input type="number" id="txtBaseWidth" min="100" value="100">
+    <div>Rộng</div>
+    <input type="number" id="txtBaseHeight" min="100" value="100">
+    <div></div>
+    <button onclick="addBase()">Tạo</button>
 </div>

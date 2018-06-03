@@ -5,23 +5,27 @@
 }
 
 #projectName{
+    width: 20%;
     float: left;
 }
 
 #userInfo{
+    width: 20%;
     float: right;
 }
 #menu{
+    float: left;
     height: 40px;
-    width: 100%;
+    width: 60%;
     box-sizing: border-box;
 }
 
 .menuItem{
     height: 100%;
-    width: 20%;
+    width: 33%;
     float: left;
     background-color: #2196F3;
+    text-align: center;
     cursor: pointer;
 }
 
