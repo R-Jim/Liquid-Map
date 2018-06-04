@@ -1,7 +1,3 @@
-function getThatBloodyThing(id) {
-    return document.getElementById(id);
-}
-
 function dragElement(elmnt) {
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
     if (document.getElementById(elmnt.id + "header")) {
@@ -303,7 +299,7 @@ function addLayer() {
     //set mouse on clink to select layer
     layer.onclick = function (ev) {
         selectedLayer = this.id;
-        turnOnAIndicator(this.id + "Indicator");
+        turnOnAIndicator(this.id);
         deselectingComponent();
     }
     layer.style.zIndex = layerCount;
@@ -338,11 +334,7 @@ function layerUIBuild(layer) {
     nameTag.id = layer.id + "NameTag";
     nameTag.className = "nameTag";
     layer.appendChild(nameTag);
-    var indicator = document.createElement('div');
-    indicator.id = layer.id + "Indicator";
-    indicator.className = "indicator";
-    layer.appendChild(indicator);
-    turnOnAIndicator(indicator.id);
+    turnOnAIndicator(layer.id);
 }
 
 function moveLayer(direction) {
@@ -404,12 +396,12 @@ function deleteLayer() {
 }
 
 function turnOnAIndicator(indicatorId) {
-    var indicators = document.getElementsByClassName("indicator");
-    for (var i = 0; i < indicators.length; i++) {
-        if (indicators[i].id == indicatorId) {
-            indicators[i].style.visibility = "visible";
+    var layers = document.getElementsByClassName("layer");
+    for (var i = 0; i < layers.length; i++) {
+        if (layers[i].id == indicatorId) {
+            layers[i].style.backgroundColor = "lightgrey";
         } else {
-            indicators[i].style.visibility = "hidden";
+            layers[i].style.backgroundColor = "white";
         }
     }
 }

@@ -29,3 +29,7 @@
     cursor: pointer;
 }
 
+#mainContent > div {
+    width: 99.5%;
+    position: absolute;
+}
